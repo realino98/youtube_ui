@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_ui/utils/topbar.dart';
 
 import '../utils/sidebar.dart';
 
@@ -13,17 +14,49 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Row(
+      // drawer: Drawer(),
+      // appBar: AppBar(
+      //   title: Text(
+      //     "YOUTUBE",
+      //     style: TextStyle(fontWeight: FontWeight.bold),
+      //   ),
+      //   actions: [
+      //     IconButton(
+      //       onPressed: () {},
+      //       icon: Icon(Icons.upload_outlined),
+      //     ),
+      //     IconButton(
+      //       onPressed: () {},
+      //       icon: Icon(Icons.notifications_outlined),
+      //     ),
+      //     IconButton(
+      //       onPressed: () {},
+      //       icon: Icon(Icons.circle_outlined),
+      //     ),
+      //     SizedBox(
+      //       width: 10,
+      //     )
+      //   ],
+      // ),
+      body: Column(
         children: [
-          Expanded(
-            flex: 1,
-            child: Sidebar(),
+          Container(
+            height: 60,
+            child: TopBar(),
           ),
           Expanded(
-            flex: 5,
-            child: Container(
-              color: Colors.grey[100],
+            child: Row(
+              children: [
+                Container(
+                  child: Sidebar(),
+                  width: 250,
+                ),
+                Expanded(
+                  child: Center(
+                    child: Text("White"),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
