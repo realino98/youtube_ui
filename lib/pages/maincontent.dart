@@ -16,16 +16,17 @@ class _MainContentState extends State<MainContent> {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: 100,
-        vertical: 20,
       ),
-      child: Column(
-        children: [
-          VideosView(),
-          Divider(),
-          ShortsView(),
-          Divider(),
-          Text("Column 3"),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            VideosView(),
+            Divider(),
+            ShortsView(),
+            Divider(),
+            Text("Column 3"),
+          ],
+        ),
       ),
     );
   }
