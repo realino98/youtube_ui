@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_ui/utils/categorybar.dart';
 import 'package:youtube_ui/utils/topbar.dart';
 
 import '../utils/sidebar.dart';
+import 'maincontent.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
@@ -14,30 +16,6 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // drawer: Drawer(),
-      // appBar: AppBar(
-      //   title: Text(
-      //     "YOUTUBE",
-      //     style: TextStyle(fontWeight: FontWeight.bold),
-      //   ),
-      //   actions: [
-      //     IconButton(
-      //       onPressed: () {},
-      //       icon: Icon(Icons.upload_outlined),
-      //     ),
-      //     IconButton(
-      //       onPressed: () {},
-      //       icon: Icon(Icons.notifications_outlined),
-      //     ),
-      //     IconButton(
-      //       onPressed: () {},
-      //       icon: Icon(Icons.circle_outlined),
-      //     ),
-      //     SizedBox(
-      //       width: 10,
-      //     )
-      //   ],
-      // ),
       body: Column(
         children: [
           Container(
@@ -52,8 +30,16 @@ class _RootPageState extends State<RootPage> {
                   width: 250,
                 ),
                 Expanded(
-                  child: Center(
-                    child: Text("White"),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 40,
+                        child: CategoryBar(),
+                      ),
+                      Expanded(
+                        child: MainContent(),
+                      ),
+                    ],
                   ),
                 ),
               ],
