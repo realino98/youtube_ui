@@ -57,10 +57,7 @@ class _TopBarState extends State<TopBar> {
               onPressed: () {},
               icon: Icon(Icons.notifications_outlined),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.circle_outlined),
-            ),
+            CircleAvatar(),
             SizedBox(
               width: 10,
             ),

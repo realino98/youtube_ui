@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_ui/views/shortsview.dart';
 
-class MainContent extends StatelessWidget {
+import '../views/videosview.dart';
+
+class MainContent extends StatefulWidget {
   const MainContent({super.key});
 
   @override
+  State<MainContent> createState() => _MainContentState();
+}
+
+class _MainContentState extends State<MainContent> {
+  @override
   Widget build(BuildContext context) {
-    // return GridView.builder(
-    //   itemCount: 8,
-    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //     crossAxisCount: 4,
-    //   ),
-    //   itemBuilder: (BuildContext context, int index) {
-    //     return GridTile(
-    //       child: Center(
-    //         child: Text("Hello"),
-    //       ),
-    //     );
-    //   },
-    // );
-    return Center(
-      child: Text("Main Content"),
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 100,
+        vertical: 20,
+      ),
+      child: Column(
+        children: [
+          VideosView(),
+          Divider(),
+          ShortsView(),
+          Divider(),
+          Text("Column 3"),
+        ],
+      ),
     );
   }
 }

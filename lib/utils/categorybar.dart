@@ -16,21 +16,36 @@ class CategoryBar extends StatelessWidget {
           children: [
             OutlinedButton(
               onPressed: () {},
-              child: Text("Category"),
+              child: Text(
+                "Category",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
             SizedBox(
               width: 8,
             ),
             OutlinedButton(
               onPressed: () {},
-              child: Text("Category"),
+              child: Text(
+                "Category",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
             SizedBox(
               width: 8,
             ),
             OutlinedButton(
               onPressed: () {},
-              child: Text("Category"),
+              child: Text(
+                "Category",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),
