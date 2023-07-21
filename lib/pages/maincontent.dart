@@ -24,7 +24,7 @@ class _MainContentState extends State<MainContent> {
             Divider(),
             ShortsView(),
             Divider(),
-            Text("Column 3"),
+            VideosView(),
           ],
         ),
       ),

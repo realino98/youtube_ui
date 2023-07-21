@@ -18,24 +18,15 @@ class _RootPageState extends State<RootPage> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            height: 60,
-            child: TopBar(),
-          ),
+          TopBar(),
           Expanded(
             child: Row(
               children: [
-                Container(
-                  child: Sidebar(),
-                  width: 250,
-                ),
+                Sidebar(),
                 Expanded(
                   child: Column(
                     children: [
-                      Container(
-                        height: 40,
-                        child: CategoryBar(),
-                      ),
+                      CategoryBar(),
                       Expanded(
                         child: MainContent(),
                       ),

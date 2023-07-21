@@ -6,6 +6,8 @@ class CategoryBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 40,
+
       // color: Colors.yellow,
       padding: EdgeInsets.symmetric(horizontal: 8),
       alignment: Alignment.centerLeft,
