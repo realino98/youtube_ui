@@ -43,6 +43,13 @@ class ShortsView extends StatelessWidget {
             },
           ),
         ),
+        ListTile(
+          onTap: () {},
+          title: Container(
+            child: Center(child: Icon(Icons.arrow_drop_down_outlined)),
+            height: 50,
+          ),
+        ),
       ],
     );
   }
