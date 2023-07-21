@@ -12,7 +12,7 @@ class ShortsThumbnail extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Container(
-              height: 300,
+              height: 400,
               color: Colors.white,
             ),
           ),
