@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../pages/videoplay_page.dart';
 
 class VideoThumbnail extends StatelessWidget {
-  const VideoThumbnail({super.key});
+  const VideoThumbnail({super.key, required this.title});
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,9 @@ class VideoThumbnail extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "[This is a Very Very  Very Long Title Line 1]\n[Title Line 2]",
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          title,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),

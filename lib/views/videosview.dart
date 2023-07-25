@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_ui/utils/videothumbnail.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
+
+import '../utilities/keys.dart';
 
 class VideosView extends StatefulWidget {
   const VideosView({super.key});
@@ -9,6 +13,41 @@ class VideosView extends StatefulWidget {
 }
 
 class _VideosViewState extends State<VideosView> {
+  // Map<String, dynamic> videoData;
+  Map? videoData;
+  Future fetch() async {
+    Map<String, String> parameters = {
+      'key': API_KEY,
+      'part': 'snippet',
+      'maxResult': '10',
+      // 'channelId': 'UChk1rCFhhnqPnDzcjIJKhTw',
+      'chart': 'mostPopular',
+    };
+    var url = Uri.https('www.googleapis.com', '/youtube/v3/videos', parameters);
+
+    // Await the http get response, then decode the json-formatted response.
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
+      // print(jsonResponse['items'][0]['kind']);
+      // return jsonResponse['items'];
+      setState(() {
+        videoData = jsonResponse;
+      });
+      // print(videoData['items'][1]['snippet']['title'] as String);
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    fetch();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // return Text("Hello");
@@ -24,7 +63,12 @@ class _VideosViewState extends State<VideosView> {
           childAspectRatio: 1 / 0.85,
         ),
         itemBuilder: (context, index) {
-          return VideoThumbnail();
+          print(videoData ?? "a");
+          return VideoThumbnail(
+            // title: videoData?['items'][index]['snippet']['title'] as String,
+            title: videoData!['items'][index]['snippet']['title'] ?? 'title',
+            // title: "title",
+          );
         },
       ),
     );
