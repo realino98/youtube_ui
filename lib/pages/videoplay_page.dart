@@ -1,17 +1,21 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../utils/topbar.dart';
 
-class VideoPlayPage extends StatefulWidget {
-  const VideoPlayPage({super.key});
+class VideoPlayPage extends StatelessWidget {
+  VideoPlayPage({super.key, required this.id});
 
-  @override
-  State<VideoPlayPage> createState() => _VideoPlayPageState();
-}
+  final String id;
 
-class _VideoPlayPageState extends State<VideoPlayPage> {
+  // final _controller = YoutubePlayerController.fromVideoId(
+  //   videoId: id,
+  //   autoPlay: false,
+  //   params: const YoutubePlayerParams(showFullscreenButton: true),
+  // );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +36,15 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                         height: 750,
                         width: 1400,
                         color: Colors.grey[500],
+                        child: YoutubePlayer(
+                          controller: YoutubePlayerController.fromVideoId(
+                            videoId: id,
+                            autoPlay: false,
+                            params: const YoutubePlayerParams(
+                                showFullscreenButton: true),
+                          ),
+                          aspectRatio: 16 / 9,
+                        ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

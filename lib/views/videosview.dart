@@ -64,6 +64,8 @@ class _VideosViewState extends State<VideosView> {
           childAspectRatio: 1 / 0.85,
         ),
         itemBuilder: (context, index) {
+          // id: videoData!['items'][index]['id'],
+          print(videoData!['items'][index]['id']);
           return VideoThumbnail(
             id: videoData!['items'][index]['id'],
             title: videoData!['items'][index]['snippet']['title'] ?? 'title',

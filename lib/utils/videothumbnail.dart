@@ -25,7 +25,9 @@ class VideoThumbnail extends StatelessWidget {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return VideoPlayPage();
+              return VideoPlayPage(
+                id: id,
+              );
             },
           ),
         );
