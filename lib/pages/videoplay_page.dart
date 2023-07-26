@@ -2,19 +2,53 @@
 
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-
+import 'package:youtube_ui/utilities/keys.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 import '../utils/topbar.dart';
 
-class VideoPlayPage extends StatelessWidget {
+class VideoPlayPage extends StatefulWidget {
   VideoPlayPage({super.key, required this.id});
 
   final String id;
 
-  // final _controller = YoutubePlayerController.fromVideoId(
-  //   videoId: id,
-  //   autoPlay: false,
-  //   params: const YoutubePlayerParams(showFullscreenButton: true),
-  // );
+  @override
+  State<VideoPlayPage> createState() => _VideoPlayPageState();
+}
+
+class _VideoPlayPageState extends State<VideoPlayPage> {
+  Map? videoData;
+
+  Future fetch() async {
+    Map<String, String> parameters = {
+      'key': API_KEY,
+      'part': 'snippet',
+      'id': widget.id,
+    };
+    var url = Uri.https('www.googleapis.com', '/youtube/v3/videos', parameters);
+
+    // Await the http get response, then decode the json-formatted response.
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
+      // print(jsonResponse['items'][0]['kind']);
+      // return jsonResponse['items'];
+      setState(() {
+        videoData = jsonResponse;
+      });
+      // print(videoData['items'][1]['snippet']['title'] as String);
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    fetch();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +72,8 @@ class VideoPlayPage extends StatelessWidget {
                         color: Colors.grey[500],
                         child: YoutubePlayer(
                           controller: YoutubePlayerController.fromVideoId(
-                            videoId: id,
-                            autoPlay: false,
+                            videoId: widget.id,
+                            autoPlay: true,
                             params: const YoutubePlayerParams(
                                 showFullscreenButton: true),
                           ),
@@ -51,11 +85,16 @@ class VideoPlayPage extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Text(
-                              "[Title of The Video]",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 35,
+                            child: Container(
+                              width: 1300,
+                              child: Text(
+                                videoData!['items'][0]['snippet']['title'],
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 35,
+                                ),
                               ),
                             ),
                           ),
@@ -73,7 +112,8 @@ class VideoPlayPage extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "[Channel Name]",
+                                        videoData!['items'][0]['snippet']
+                                            ['channelTitle'],
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
