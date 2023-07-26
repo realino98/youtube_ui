@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import '../pages/videoplay_page.dart';
 
 class VideoThumbnail extends StatelessWidget {
-  const VideoThumbnail({
+  VideoThumbnail({
     super.key,
     required this.id,
     required this.title,
     required this.thumbnail,
     required this.channelTitle,
     required this.published,
+    required this.views,
   });
 
   final String id;
@@ -17,6 +18,7 @@ class VideoThumbnail extends StatelessWidget {
   final String thumbnail;
   final String channelTitle;
   final String published;
+  final String views;
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +96,7 @@ class VideoThumbnail extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "[Views]",
+                              "${views} Views",
                               style: TextStyle(
                                 color: Colors.grey,
                               ),

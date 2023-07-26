@@ -18,7 +18,7 @@ class _VideosViewState extends State<VideosView> {
   Future fetch() async {
     Map<String, String> parameters = {
       'key': API_KEY,
-      'part': 'snippet',
+      'part': 'snippet, statistics',
       'maxResults': '8',
       // 'channelId': 'UChk1rCFhhnqPnDzcjIJKhTw',
       'chart': 'mostPopular',
@@ -73,6 +73,7 @@ class _VideosViewState extends State<VideosView> {
                 ['medium']['url'],
             channelTitle: videoData!['items'][index]['snippet']['channelTitle'],
             published: videoData!['items'][index]['snippet']['publishedAt'],
+            views: videoData!['items'][index]['statistics']['viewCount'],
           );
         },
       ),

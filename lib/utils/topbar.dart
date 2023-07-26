@@ -19,8 +19,10 @@ class _TopBarState extends State<TopBar> {
           Row(
             children: [
               IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.menu),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: Icon(Icons.arrow_back_outlined),
               ),
               Text(
                 "YOUTUBE",
