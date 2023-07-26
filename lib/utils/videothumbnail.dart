@@ -5,12 +5,14 @@ import '../pages/videoplay_page.dart';
 class VideoThumbnail extends StatelessWidget {
   const VideoThumbnail({
     super.key,
+    required this.id,
     required this.title,
     required this.thumbnail,
     required this.channelTitle,
     required this.published,
   });
 
+  final String id;
   final String title;
   final String thumbnail;
   final String channelTitle;

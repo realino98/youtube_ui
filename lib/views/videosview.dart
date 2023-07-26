@@ -22,6 +22,7 @@ class _VideosViewState extends State<VideosView> {
       'maxResults': '8',
       // 'channelId': 'UChk1rCFhhnqPnDzcjIJKhTw',
       'chart': 'mostPopular',
+      'regionCode': 'ID',
     };
     var url = Uri.https('www.googleapis.com', '/youtube/v3/videos', parameters);
 
@@ -64,6 +65,7 @@ class _VideosViewState extends State<VideosView> {
         ),
         itemBuilder: (context, index) {
           return VideoThumbnail(
+            id: videoData!['items'][index]['id'],
             title: videoData!['items'][index]['snippet']['title'] ?? 'title',
             thumbnail: videoData!['items'][index]['snippet']['thumbnails']
                 ['medium']['url'],

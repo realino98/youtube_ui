@@ -26,10 +26,15 @@ class ShortsThumbnail extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "[This is a Very Long Title Line 1]\n[Title Line 2]",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    width: 180,
+                    child: Text(
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      "[This is a Very Long Title Line 1][Title Line 2]",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   Text(
