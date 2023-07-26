@@ -19,7 +19,7 @@ class _VideosViewState extends State<VideosView> {
     Map<String, String> parameters = {
       'key': API_KEY,
       'part': 'snippet',
-      'maxResult': '10',
+      'maxResults': '8',
       // 'channelId': 'UChk1rCFhhnqPnDzcjIJKhTw',
       'chart': 'mostPopular',
     };
@@ -63,11 +63,12 @@ class _VideosViewState extends State<VideosView> {
           childAspectRatio: 1 / 0.85,
         ),
         itemBuilder: (context, index) {
-          print(videoData ?? "a");
           return VideoThumbnail(
-            // title: videoData?['items'][index]['snippet']['title'] as String,
             title: videoData!['items'][index]['snippet']['title'] ?? 'title',
-            // title: "title",
+            thumbnail: videoData!['items'][index]['snippet']['thumbnails']
+                ['medium']['url'],
+            channelTitle: videoData!['items'][index]['snippet']['channelTitle'],
+            published: videoData!['items'][index]['snippet']['publishedAt'],
           );
         },
       ),

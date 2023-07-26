@@ -3,9 +3,18 @@ import 'package:flutter/material.dart';
 import '../pages/videoplay_page.dart';
 
 class VideoThumbnail extends StatelessWidget {
-  const VideoThumbnail({super.key, required this.title});
+  const VideoThumbnail({
+    super.key,
+    required this.title,
+    required this.thumbnail,
+    required this.channelTitle,
+    required this.published,
+  });
 
   final String title;
+  final String thumbnail;
+  final String channelTitle;
+  final String published;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +37,10 @@ class VideoThumbnail extends StatelessWidget {
               child: Container(
                 height: 210,
                 color: Colors.white,
+                child: Image.network(
+                  thumbnail,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(
@@ -49,18 +62,21 @@ class VideoThumbnail extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          maxLines: 4,
-                          overflow: TextOverflow.ellipsis,
-                          title,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                        Container(
+                          width: 250,
+                          child: Text(
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            title,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         Row(
                           children: [
                             Text(
-                              "[Channel]",
+                              channelTitle,
                               style: TextStyle(
                                 color: Colors.grey,
                               ),
@@ -86,7 +102,7 @@ class VideoThumbnail extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "[Uploaded Time]",
+                              "${published[0]}${published[1]}${published[2]}${published[3]}${published[4]}${published[5]}${published[6]}${published[7]}${published[8]}${published[9]}",
                               style: TextStyle(
                                 color: Colors.grey,
                               ),
