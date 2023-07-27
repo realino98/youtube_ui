@@ -5,6 +5,7 @@ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:youtube_ui/utilities/keys.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+import '../utils/smallThumbnail.dart';
 import '../utils/topbar.dart';
 
 class VideoPlayPage extends StatefulWidget {
@@ -17,13 +18,17 @@ class VideoPlayPage extends StatefulWidget {
 }
 
 class _VideoPlayPageState extends State<VideoPlayPage> {
-  Map? videoData;
-
-  Future fetch() async {
+  Map? playingVideoData;
+  Map? playlistData;
+  int maxResult = 25;
+  Future fetchPlaylist(maxResult) async {
     Map<String, String> parameters = {
       'key': API_KEY,
-      'part': 'snippet',
-      'id': widget.id,
+      'part': 'snippet, statistics',
+      'maxResults': maxResult.toString(),
+      // 'channelId': 'UChk1rCFhhnqPnDzcjIJKhTw',
+      'chart': 'mostPopular',
+      'regionCode': 'ID',
     };
     var url = Uri.https('www.googleapis.com', '/youtube/v3/videos', parameters);
 
@@ -35,9 +40,33 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
       // print(jsonResponse['items'][0]['kind']);
       // return jsonResponse['items'];
       setState(() {
-        videoData = jsonResponse;
+        playlistData = jsonResponse;
       });
-      // print(videoData['items'][1]['snippet']['title'] as String);
+      // print(playlistData['items'][1]['snippet']['title'] as String);
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
+  Future fetchVideo() async {
+    Map<String, String> parameters = {
+      'key': API_KEY,
+      'part': 'snippet, statistics',
+      'id': widget.id,
+    };
+    var url = Uri.https('www.googleapis.com', '/youtube/v3/videos', parameters);
+
+    // Await the http get response, then decode the json-formatted response.
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
+      print(jsonResponse['items'][0]['kind']);
+      // return jsonResponse['items'];
+      setState(() {
+        playingVideoData = jsonResponse;
+      });
+      // print(playingVideoData['items'][1]['snippet']['title'] as String);
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
@@ -46,7 +75,8 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
   @override
   void initState() {
     // TODO: implement initState
-    fetch();
+    fetchVideo();
+    fetchPlaylist(maxResult);
     super.initState();
   }
 
@@ -55,6 +85,8 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
     return Scaffold(
       appBar: AppBar(
         title: TopBar(),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30),
@@ -91,7 +123,8 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                             child: Container(
                               width: 1300,
                               child: Text(
-                                videoData!['items'][0]['snippet']['title'],
+                                playingVideoData!['items'][0]['snippet']
+                                    ['title'],
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -115,7 +148,7 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        videoData!['items'][0]['snippet']
+                                        playingVideoData!['items'][0]['snippet']
                                             ['channelTitle'],
                                         style: TextStyle(
                                           color: Colors.white,
@@ -128,6 +161,11 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                                       ),
                                     ],
                                   ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                      "${playingVideoData!['items'][0]['statistics']['viewCount']} Views"),
                                   SizedBox(
                                     width: 8,
                                   ),
@@ -145,7 +183,16 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                                   ),
                                   OutlinedButton(
                                     onPressed: () {},
-                                    child: Icon(Icons.thumb_up_outlined),
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.thumb_up_outlined),
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                            "${playingVideoData!['items'][0]['statistics']['likeCount']}"),
+                                      ],
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 8,
@@ -235,15 +282,31 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                   ),
                   SizedBox(width: 30),
                   //Recomendation
-                  Column(
-                    children: [
-                      Container(
-                        height: 900,
-                        width: 400,
-                        color: Colors.grey[500],
-                      ),
-                    ],
-                  ),
+                  Container(
+                    height: 920,
+                    width: 420,
+                    child: ListView.builder(
+                      itemCount: 20,
+                      itemBuilder: (context, index) {
+                        return SmallThumbnail(
+                          id: playlistData!['items'][index]['id'],
+                          profilePicture: playlistData!['items'][index]
+                              ['snippet']['thumbnails']['default']['url'],
+                          title: playlistData!['items'][index]['snippet']
+                                  ['title'] ??
+                              'title',
+                          thumbnail: playlistData!['items'][index]['snippet']
+                              ['thumbnails']['default']['url'],
+                          channelTitle: playlistData!['items'][index]['snippet']
+                              ['channelTitle'],
+                          published: playlistData!['items'][index]['snippet']
+                              ['publishedAt'],
+                          views: playlistData!['items'][index]['statistics']
+                              ['viewCount'],
+                        );
+                      },
+                    ),
+                  )
                 ],
               ),
             ),

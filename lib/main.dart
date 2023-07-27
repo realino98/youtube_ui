@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_ui/pages/root_page.dart';
+import 'package:youtube_ui/pages/videoplay_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       home: RootPage(),
+      // home: VideoPlayPage(id: "wKCpeEREeCw"),
     );
   }
 }
