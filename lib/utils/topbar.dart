@@ -55,7 +55,53 @@ class _TopBarState extends State<TopBar> {
                 onPressed: () {},
                 icon: Icon(Icons.notifications_outlined),
               ),
-              CircleAvatar(),
+              IconButton(
+                icon: CircleAvatar(),
+                onPressed: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => Dialog(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Container(
+                        width: 300,
+                        height: 400,
+                        padding: EdgeInsets.all(20),
+                        child: ListView(
+                          children: [
+                            Row(
+                              children: [
+                                CircleAvatar(),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Channel Title"),
+                                    Text("@Username"),
+                                    Text(
+                                      "... Subscribers",
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Divider(),
+                            ListTile(
+                              onTap: () {},
+                              leading: Icon(Icons.settings),
+                              title: Text("Settings"),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               SizedBox(
                 width: 10,
               ),
