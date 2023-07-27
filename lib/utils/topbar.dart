@@ -18,12 +18,6 @@ class _TopBarState extends State<TopBar> {
           //Left
           Row(
             children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: Icon(Icons.arrow_back_outlined),
-              ),
               Text(
                 "YOUTUBE",
                 style: TextStyle(fontWeight: FontWeight.bold),

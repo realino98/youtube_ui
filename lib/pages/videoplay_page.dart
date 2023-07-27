@@ -53,11 +53,14 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: TopBar(),
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           children: [
-            TopBar(),
+            // TopBar(),
             SingleChildScrollView(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,

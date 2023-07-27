@@ -11,6 +11,7 @@ class VideoThumbnail extends StatelessWidget {
     required this.channelTitle,
     required this.published,
     required this.views,
+    required this.profilePicture,
   });
 
   final String id;
@@ -19,6 +20,7 @@ class VideoThumbnail extends StatelessWidget {
   final String channelTitle;
   final String published;
   final String views;
+  final String profilePicture;
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,7 @@ class VideoThumbnail extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
+                      child: Image.network(profilePicture),
                       backgroundColor: Colors.white,
                     ),
                     SizedBox(

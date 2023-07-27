@@ -15,11 +15,12 @@ class VideosView extends StatefulWidget {
 class _VideosViewState extends State<VideosView> {
   // Map<String, dynamic> videoData;
   Map? videoData;
-  Future fetch() async {
+  int maxResult = 25;
+  Future fetch(maxResult) async {
     Map<String, String> parameters = {
       'key': API_KEY,
       'part': 'snippet, statistics',
-      'maxResults': '8',
+      'maxResults': maxResult.toString(),
       // 'channelId': 'UChk1rCFhhnqPnDzcjIJKhTw',
       'chart': 'mostPopular',
       'regionCode': 'ID',
@@ -45,7 +46,7 @@ class _VideosViewState extends State<VideosView> {
   @override
   void initState() {
     // TODO: implement initState
-    fetch();
+    fetch(maxResult);
     super.initState();
   }
 
@@ -53,10 +54,10 @@ class _VideosViewState extends State<VideosView> {
   Widget build(BuildContext context) {
     // return Text("Hello");
     return Container(
-      height: 650,
+      height: 900,
       width: double.infinity,
       child: GridView.builder(
-        itemCount: 8,
+        itemCount: maxResult,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
           crossAxisSpacing: 10,
@@ -68,6 +69,8 @@ class _VideosViewState extends State<VideosView> {
           print(videoData!['items'][index]['id']);
           return VideoThumbnail(
             id: videoData!['items'][index]['id'],
+            profilePicture: videoData!['items'][index]['snippet']['thumbnails']
+                ['default']['url'],
             title: videoData!['items'][index]['snippet']['title'] ?? 'title',
             thumbnail: videoData!['items'][index]['snippet']['thumbnails']
                 ['medium']['url'],

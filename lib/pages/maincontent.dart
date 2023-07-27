@@ -21,10 +21,10 @@ class _MainContentState extends State<MainContent> {
         child: Column(
           children: [
             VideosView(),
-            Divider(),
-            ShortsView(),
-            Divider(),
-            VideosView(),
+            // Divider(),
+            // ShortsView(),
+            // Divider(),
+            // VideosView(),
           ],
         ),
       ),
