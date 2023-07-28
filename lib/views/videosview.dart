@@ -16,13 +16,14 @@ class _VideosViewState extends State<VideosView> {
   // Map<String, dynamic> videoData;
   Map? videoData;
   int maxResult = 25;
+  String chart = "mostPopular";
   Future fetch(maxResult) async {
     Map<String, String> parameters = {
       'key': API_KEY,
       'part': 'snippet, statistics',
       'maxResults': maxResult.toString(),
       // 'channelId': 'UChk1rCFhhnqPnDzcjIJKhTw',
-      'chart': 'mostPopular',
+      'chart': chart,
       'regionCode': 'ID',
     };
     var url = Uri.https('www.googleapis.com', '/youtube/v3/videos', parameters);

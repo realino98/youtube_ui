@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Sidebar extends StatelessWidget {
-  const Sidebar({super.key});
-
+  const Sidebar({super.key, required this.onSelectedItem});
+  final Function onSelectedItem;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -94,12 +94,12 @@ class Sidebar extends StatelessWidget {
             title: Text("Explore"),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () => onSelectedItem("Trending"),
             leading: Icon(Icons.trending_up_outlined),
             title: Text("Trending"),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () => onSelectedItem("Music"),
             leading: Icon(Icons.music_note_outlined),
             title: Text("Music"),
           ),

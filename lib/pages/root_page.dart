@@ -27,7 +27,11 @@ class _RootPageState extends State<RootPage> {
           Expanded(
             child: Row(
               children: [
-                Sidebar(),
+                Sidebar(
+                  onSelectedItem: (String category) {
+                    print(category);
+                  },
+                ),
                 Expanded(
                   child: Column(
                     children: [
