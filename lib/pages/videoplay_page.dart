@@ -18,8 +18,8 @@ class VideoPlayPage extends StatefulWidget {
 }
 
 class _VideoPlayPageState extends State<VideoPlayPage> {
-  Map? playingVideoData;
-  Map? playlistData;
+  late Map playingVideoData;
+  late Map playlistData;
   int maxResult = 25;
   Future fetchPlaylist(maxResult) async {
     Map<String, String> parameters = {
@@ -123,7 +123,7 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                             child: Container(
                               width: 1300,
                               child: Text(
-                                playingVideoData!['items'][0]['snippet']
+                                playingVideoData['items'][0]['snippet']
                                     ['title'],
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -148,7 +148,7 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        playingVideoData!['items'][0]['snippet']
+                                        playingVideoData['items'][0]['snippet']
                                             ['channelTitle'],
                                         style: TextStyle(
                                           color: Colors.white,
@@ -165,7 +165,7 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                                     width: 8,
                                   ),
                                   Text(
-                                      "${playingVideoData!['items'][0]['statistics']['viewCount']} Views"),
+                                      "${playingVideoData['items'][0]['statistics']['viewCount']} Views"),
                                   SizedBox(
                                     width: 8,
                                   ),
@@ -190,7 +190,7 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                                           width: 8,
                                         ),
                                         Text(
-                                            "${playingVideoData!['items'][0]['statistics']['likeCount']}"),
+                                            "${playingVideoData['items'][0]['statistics']['likeCount']}"),
                                       ],
                                     ),
                                   ),
@@ -289,19 +289,19 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                       itemCount: 20,
                       itemBuilder: (context, index) {
                         return SmallThumbnail(
-                          id: playlistData!['items'][index]['id'],
-                          profilePicture: playlistData!['items'][index]
+                          id: playlistData['items'][index]['id'],
+                          profilePicture: playlistData['items'][index]
                               ['snippet']['thumbnails']['default']['url'],
-                          title: playlistData!['items'][index]['snippet']
+                          title: playlistData['items'][index]['snippet']
                                   ['title'] ??
                               'title',
-                          thumbnail: playlistData!['items'][index]['snippet']
+                          thumbnail: playlistData['items'][index]['snippet']
                               ['thumbnails']['default']['url'],
-                          channelTitle: playlistData!['items'][index]['snippet']
+                          channelTitle: playlistData['items'][index]['snippet']
                               ['channelTitle'],
-                          published: playlistData!['items'][index]['snippet']
+                          published: playlistData['items'][index]['snippet']
                               ['publishedAt'],
-                          views: playlistData!['items'][index]['statistics']
+                          views: playlistData['items'][index]['statistics']
                               ['viewCount'],
                         );
                       },

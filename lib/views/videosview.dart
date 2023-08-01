@@ -14,7 +14,8 @@ class VideosView extends StatefulWidget {
 
 class _VideosViewState extends State<VideosView> {
   // Map<String, dynamic> videoData;
-  Map? videoData;
+  late Map videoData;
+  bool _isLoading = true;
   int maxResult = 25;
   String chart = "mostPopular";
   Future fetch(maxResult) async {
@@ -35,9 +36,12 @@ class _VideosViewState extends State<VideosView> {
           convert.jsonDecode(response.body) as Map<String, dynamic>;
       // print(jsonResponse['items'][0]['kind']);
       // return jsonResponse['items'];
-      setState(() {
-        videoData = jsonResponse;
-      });
+      setState(
+        () {
+          videoData = jsonResponse;
+          _isLoading = false;
+        },
+      );
       // print(videoData['items'][1]['snippet']['title'] as String);
     } else {
       print('Request failed with status: ${response.statusCode}.');
@@ -67,18 +71,31 @@ class _VideosViewState extends State<VideosView> {
         ),
         itemBuilder: (context, index) {
           // id: videoData!['items'][index]['id'],
-          print(videoData!['items'][index]['id']);
-          return VideoThumbnail(
-            id: videoData!['items'][index]['id'],
-            profilePicture: videoData!['items'][index]['snippet']['thumbnails']
-                ['default']['url'],
-            title: videoData!['items'][index]['snippet']['title'] ?? 'title',
-            thumbnail: videoData!['items'][index]['snippet']['thumbnails']
-                ['medium']['url'],
-            channelTitle: videoData!['items'][index]['snippet']['channelTitle'],
-            published: videoData!['items'][index]['snippet']['publishedAt'],
-            views: videoData!['items'][index]['statistics']['viewCount'],
-          );
+          if (_isLoading) {
+            return Container(
+              width: 200,
+              height: 200,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Colors.grey,
+                ),
+              ),
+            );
+          } else {
+            print(videoData['items'][index]['id']);
+            return VideoThumbnail(
+              id: videoData['items'][index]['id'],
+              profilePicture: videoData['items'][index]['snippet']['thumbnails']
+                  ['default']['url'],
+              title: videoData['items'][index]['snippet']['title'] ?? 'title',
+              thumbnail: videoData['items'][index]['snippet']['thumbnails']
+                  ['medium']['url'],
+              channelTitle: videoData['items'][index]['snippet']
+                  ['channelTitle'],
+              published: videoData['items'][index]['snippet']['publishedAt'],
+              views: videoData['items'][index]['statistics']['viewCount'],
+            );
+          }
         },
       ),
     );
