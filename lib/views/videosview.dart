@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_ui/models/video_model.dart';
 import 'package:youtube_ui/utils/videothumbnail.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
@@ -14,7 +15,7 @@ class VideosView extends StatefulWidget {
 
 class _VideosViewState extends State<VideosView> {
   // Map<String, dynamic> videoData;
-  late Map videoData;
+  late List<Video> videoData = [];
   bool _isLoading = true;
   int maxResult = 25;
   String chart = "mostPopular";
@@ -29,16 +30,25 @@ class _VideosViewState extends State<VideosView> {
     };
     var url = Uri.https('www.googleapis.com', '/youtube/v3/videos', parameters);
 
-    // Await the http get response, then decode the json-formatted response.
+    // Await the http get response, then  decode the json-formatted response.
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse =
           convert.jsonDecode(response.body) as Map<String, dynamic>;
+      print(jsonResponse);
       // print(jsonResponse['items'][0]['kind']);
       // return jsonResponse['items'];
+      List<dynamic> videosJson = jsonResponse['items'];
+      videosJson.forEach(
+        (video) {
+          videoData.add(Video.fromMap(video));
+        },
+      );
       setState(
         () {
-          videoData = jsonResponse;
+          // print(videoData[0].id);\
+          // print(videoData);
+
           _isLoading = false;
         },
       );
@@ -82,18 +92,15 @@ class _VideosViewState extends State<VideosView> {
               ),
             );
           } else {
-            print(videoData['items'][index]['id']);
+            // print(videoData['items'][index]['id']);
             return VideoThumbnail(
-              id: videoData['items'][index]['id'],
-              profilePicture: videoData['items'][index]['snippet']['thumbnails']
-                  ['default']['url'],
-              title: videoData['items'][index]['snippet']['title'] ?? 'title',
-              thumbnail: videoData['items'][index]['snippet']['thumbnails']
-                  ['medium']['url'],
-              channelTitle: videoData['items'][index]['snippet']
-                  ['channelTitle'],
-              published: videoData['items'][index]['snippet']['publishedAt'],
-              views: videoData['items'][index]['statistics']['viewCount'],
+              id: videoData[index].id,
+              profilePicture: videoData[index].profilePicture,
+              title: videoData[index].title,
+              thumbnail: videoData[index].thumbnail,
+              channelTitle: videoData[index].channelTitle,
+              published: videoData[index].published,
+              views: videoData[index].views,
             );
           }
         },
