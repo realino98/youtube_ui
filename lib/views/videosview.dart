@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_ui/models/video_model.dart';
+import 'package:youtube_ui/services/api_service.dart';
 import 'package:youtube_ui/utils/videothumbnail.dart';
-import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
-
-import '../utilities/keys.dart';
 
 class VideosView extends StatefulWidget {
   const VideosView({super.key});
@@ -14,55 +11,24 @@ class VideosView extends StatefulWidget {
 }
 
 class _VideosViewState extends State<VideosView> {
-  // Map<String, dynamic> videoData;
-  late List<Video> videoData = [];
+  // Map<String, dynamic> _videoData;
+  late List<Video> _videoData = [];
   bool _isLoading = true;
   int maxResult = 25;
   String chart = "mostPopular";
-  Future fetch(maxResult) async {
-    Map<String, String> parameters = {
-      'key': API_KEY,
-      'part': 'snippet, statistics',
-      'maxResults': maxResult.toString(),
-      // 'channelId': 'UChk1rCFhhnqPnDzcjIJKhTw',
-      'chart': chart,
-      'regionCode': 'ID',
-    };
-    var url = Uri.https('www.googleapis.com', '/youtube/v3/videos', parameters);
-
-    // Await the http get response, then  decode the json-formatted response.
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var jsonResponse =
-          convert.jsonDecode(response.body) as Map<String, dynamic>;
-      print(jsonResponse);
-      // print(jsonResponse['items'][0]['kind']);
-      // return jsonResponse['items'];
-      List<dynamic> videosJson = jsonResponse['items'];
-      videosJson.forEach(
-        (video) {
-          videoData.add(Video.fromMap(video));
-        },
-      );
-      setState(
-        () {
-          // print(videoData[0].id);\
-          // print(videoData);
-
-          _isLoading = false;
-        },
-      );
-      // print(videoData['items'][1]['snippet']['title'] as String);
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-    }
-  }
 
   @override
   void initState() {
-    // TODO: implement initState
-    fetch(maxResult);
     super.initState();
+    _initVideos();
+  }
+
+  _initVideos() async {
+    List<Video> videoData = await API_Service.instance.fetch();
+    setState(() {
+      _videoData = videoData;
+      _isLoading = false;
+    });
   }
 
   @override
@@ -80,7 +46,7 @@ class _VideosViewState extends State<VideosView> {
           childAspectRatio: 1 / 0.85,
         ),
         itemBuilder: (context, index) {
-          // id: videoData!['items'][index]['id'],
+          // id: _videoData!['items'][index]['id'],
           if (_isLoading) {
             return Container(
               width: 200,
@@ -92,15 +58,15 @@ class _VideosViewState extends State<VideosView> {
               ),
             );
           } else {
-            // print(videoData['items'][index]['id']);
+            // print(_videoData['items'][index]['id']);
             return VideoThumbnail(
-              id: videoData[index].id,
-              profilePicture: videoData[index].profilePicture,
-              title: videoData[index].title,
-              thumbnail: videoData[index].thumbnail,
-              channelTitle: videoData[index].channelTitle,
-              published: videoData[index].published,
-              views: videoData[index].views,
+              id: _videoData[index].id,
+              profilePicture: _videoData[index].profilePicture,
+              title: _videoData[index].title,
+              thumbnail: _videoData[index].thumbnail,
+              channelTitle: _videoData[index].channelTitle,
+              published: _videoData[index].published,
+              views: _videoData[index].views,
             );
           }
         },

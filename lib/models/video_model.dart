@@ -22,7 +22,7 @@ class Video {
       id: video['id'],
       profilePicture: video['snippet']['thumbnails']['default']['url'],
       title: video['snippet']['title'] ?? 'title',
-      thumbnail: video['snippet']['thumbnails']['default']['url'],
+      thumbnail: video['snippet']['thumbnails']['medium']['url'],
       channelTitle: video['snippet']['channelTitle'],
       published: video['snippet']['publishedAt'],
       views: video['statistics']['viewCount'],
