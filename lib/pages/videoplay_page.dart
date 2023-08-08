@@ -2,9 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-import 'package:youtube_ui/utilities/keys.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
 import '../models/video_model.dart';
 import '../services/api_service.dart';
 import '../utils/smallThumbnail.dart';
