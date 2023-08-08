@@ -35,7 +35,7 @@ class _RootPageState extends State<RootPage> {
                 Expanded(
                   child: Column(
                     children: [
-                      CategoryBar(),
+                      // CategoryBar(),
                       Expanded(
                         child: MainContent(),
                       ),

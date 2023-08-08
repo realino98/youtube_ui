@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:youtube_ui/views/shortsview.dart';
 
 import '../views/videosview.dart';
+import '../views/videosviewTV.dart';
 
 class MainContent extends StatefulWidget {
   const MainContent({super.key});
@@ -20,7 +21,8 @@ class _MainContentState extends State<MainContent> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            VideosView(),
+            VideosViewTV(),
+            // VideosView(),
             // Divider(),
             // ShortsView(),
             // Divider(),
