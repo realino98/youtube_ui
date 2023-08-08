@@ -11,8 +11,8 @@ class VideosView extends StatefulWidget {
 }
 
 class _VideosViewState extends State<VideosView> {
-  // Map<String, dynamic> _videoData;
-  late List<Video> _videoData = [];
+  // Map<String, dynamic> _playlistData;
+  late List<Video> _playlistData = [];
   bool _isLoading = true;
   int maxResult = 25;
   String chart = "mostPopular";
@@ -20,13 +20,13 @@ class _VideosViewState extends State<VideosView> {
   @override
   void initState() {
     super.initState();
-    _initVideos();
+    _initPlaylist();
   }
 
-  _initVideos() async {
-    List<Video> videoData = await API_Service.instance.fetch();
+  _initPlaylist() async {
+    List<Video> playlistData = await API_Service.instance.fetchPlaylist();
     setState(() {
-      _videoData = videoData;
+      _playlistData = playlistData;
       _isLoading = false;
     });
   }
@@ -46,7 +46,7 @@ class _VideosViewState extends State<VideosView> {
           childAspectRatio: 1 / 0.85,
         ),
         itemBuilder: (context, index) {
-          // id: _videoData!['items'][index]['id'],
+          // id: _playlistData!['items'][index]['id'],
           if (_isLoading) {
             return Container(
               width: 200,
@@ -58,15 +58,15 @@ class _VideosViewState extends State<VideosView> {
               ),
             );
           } else {
-            // print(_videoData['items'][index]['id']);
+            // print(_playlistData['items'][index]['id']);
             return VideoThumbnail(
-              id: _videoData[index].id,
-              profilePicture: _videoData[index].profilePicture,
-              title: _videoData[index].title,
-              thumbnail: _videoData[index].thumbnail,
-              channelTitle: _videoData[index].channelTitle,
-              published: _videoData[index].published,
-              views: _videoData[index].views,
+              id: _playlistData[index].id,
+              profilePicture: _playlistData[index].profilePicture,
+              title: _playlistData[index].title,
+              thumbnail: _playlistData[index].thumbnail,
+              channelTitle: _playlistData[index].channelTitle,
+              published: _playlistData[index].published,
+              views: _playlistData[index].views,
             );
           }
         },
