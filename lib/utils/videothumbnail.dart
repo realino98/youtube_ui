@@ -1,26 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../models/video_model.dart';
 import '../pages/videoplay_page.dart';
 
 class VideoThumbnail extends StatelessWidget {
   VideoThumbnail({
-    super.key,
-    required this.id,
-    required this.title,
-    required this.thumbnail,
-    required this.channelTitle,
-    required this.published,
-    required this.views,
-    required this.profilePicture,
+    required this.video,
   });
-
-  final String id;
-  final String title;
-  final String thumbnail;
-  final String channelTitle;
-  final String published;
-  final String views;
-  final String profilePicture;
+  final Video video;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +17,7 @@ class VideoThumbnail extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) {
               return VideoPlayPage(
-                id: id,
+                id: video.id,
               );
             },
           ),
@@ -46,7 +33,7 @@ class VideoThumbnail extends StatelessWidget {
                 height: 210,
                 color: Colors.white,
                 child: Image.network(
-                  thumbnail,
+                  video.thumbnail,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -62,7 +49,7 @@ class VideoThumbnail extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
-                      child: Image.network(profilePicture),
+                      child: Image.network(video.profilePicture),
                       backgroundColor: Colors.white,
                     ),
                     SizedBox(
@@ -76,7 +63,7 @@ class VideoThumbnail extends StatelessWidget {
                           child: Text(
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            title,
+                            video.title,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -85,7 +72,7 @@ class VideoThumbnail extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              channelTitle,
+                              video.channelTitle,
                               style: TextStyle(
                                 color: Colors.grey,
                               ),
@@ -99,7 +86,7 @@ class VideoThumbnail extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "${views} Views",
+                              "${video.views} Views",
                               style: TextStyle(
                                 color: Colors.grey,
                               ),
@@ -111,7 +98,7 @@ class VideoThumbnail extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "${published[0]}${published[1]}${published[2]}${published[3]}${published[4]}${published[5]}${published[6]}${published[7]}${published[8]}${published[9]}",
+                              "${video.published[0]}${video.published[1]}${video.published[2]}${video.published[3]}${video.published[4]}${video.published[5]}${video.published[6]}${video.published[7]}${video.published[8]}${video.published[9]}",
                               style: TextStyle(
                                 color: Colors.grey,
                               ),

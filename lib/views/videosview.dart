@@ -60,13 +60,7 @@ class _VideosViewState extends State<VideosView> {
           } else {
             // print(_playlistData['items'][index]['id']);
             return VideoThumbnail(
-              id: _playlistData[index].id,
-              profilePicture: _playlistData[index].profilePicture,
-              title: _playlistData[index].title,
-              thumbnail: _playlistData[index].thumbnail,
-              channelTitle: _playlistData[index].channelTitle,
-              published: _playlistData[index].published,
-              views: _playlistData[index].views,
+              video: _playlistData[index],
             );
           }
         },

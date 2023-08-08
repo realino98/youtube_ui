@@ -265,15 +265,7 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                                   itemCount: 25,
                                   itemBuilder: (context, index) {
                                     return SmallThumbnail(
-                                      id: _playlistData[index].id,
-                                      profilePicture:
-                                          _playlistData[index].profilePicture,
-                                      title: _playlistData[index].title,
-                                      thumbnail: _playlistData[index].thumbnail,
-                                      channelTitle:
-                                          _playlistData[index].channelTitle,
-                                      published: _playlistData[index].published,
-                                      views: _playlistData[index].views,
+                                      video: _playlistData[index],
                                     );
                                   },
                                 ),

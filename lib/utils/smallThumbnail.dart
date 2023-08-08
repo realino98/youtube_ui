@@ -1,24 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../models/video_model.dart';
+
 class SmallThumbnail extends StatelessWidget {
   const SmallThumbnail({
-    super.key,
-    required this.id,
-    required this.title,
-    required this.thumbnail,
-    required this.channelTitle,
-    required this.published,
-    required this.views,
-    required this.profilePicture,
+    required this.video,
   });
 
-  final String id;
-  final String title;
-  final String thumbnail;
-  final String channelTitle;
-  final String published;
-  final String views;
-  final String profilePicture;
+  final Video video;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -37,7 +26,7 @@ class SmallThumbnail extends StatelessWidget {
                   width: 160,
                   color: Colors.white,
                   child: Image.network(
-                    thumbnail,
+                    video.thumbnail,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -51,7 +40,7 @@ class SmallThumbnail extends StatelessWidget {
                   Container(
                     width: 220,
                     child: Text(
-                      title,
+                      video.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -60,13 +49,13 @@ class SmallThumbnail extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    channelTitle,
+                    video.channelTitle,
                     style: TextStyle(color: Colors.grey),
                   ),
                   Row(
                     children: <Widget>[
                       Text(
-                        "${views} Views",
+                        "${video.views} Views",
                         style: TextStyle(
                           color: Colors.grey,
                         ),
@@ -78,7 +67,7 @@ class SmallThumbnail extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "${published[0]}${published[1]}${published[2]}${published[3]}${published[4]}${published[5]}${published[6]}${published[7]}${published[8]}${published[9]}",
+                        "${video.published[0]}${video.published[1]}${video.published[2]}${video.published[3]}${video.published[4]}${video.published[5]}${video.published[6]}${video.published[7]}${video.published[8]}${video.published[9]}",
                         style: TextStyle(
                           color: Colors.grey,
                         ),
