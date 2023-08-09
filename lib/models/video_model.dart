@@ -40,14 +40,14 @@ String viewCount(String views) {
     viewCount = viewCount ~/ 1000;
     _tails = "K";
   } else if (viewCount <= 1000000000) {
-    viewCount = viewCount ~/ 1000000;
+    viewCount = viewCount / 1000000;
     _tails = "M";
   } else if (viewCount <= 1000000000000) {
-    viewCount = viewCount ~/ 1000000000;
+    viewCount = viewCount / 1000000000;
     _tails = "B";
   } else {
-    viewCount = viewCount ~/ 1000000000;
+    viewCount = viewCount / 1000000000;
     _tails = "B";
   }
-  return "${viewCount}${_tails}";
+  return "${viewCount.toStringAsFixed(1)}${_tails}";
 }

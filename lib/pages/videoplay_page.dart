@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import '../models/video_model.dart';
 import '../services/api_service.dart';
-import '../utils/smallThumbnail.dart';
+
 import '../utils/topbar.dart';
+import '../utils/videothumbnail.dart';
 
 class VideoPlayPage extends StatefulWidget {
   VideoPlayPage({super.key, required this.id});
