@@ -21,13 +21,16 @@ class _VideosViewTVState extends State<VideosViewTV> {
   @override
   void initState() {
     super.initState();
+    // _initPlaylist();
+    _initPlaylist();
+    _initPlaylist();
     _initPlaylist();
   }
 
   _initPlaylist() async {
     List<Video> playlistData = await API_Service.instance.fetchPlaylist();
     setState(() {
-      _playlistData = playlistData;
+      _playLists.add(playlistData);
       _isLoading = false;
     });
   }
@@ -41,9 +44,9 @@ class _VideosViewTVState extends State<VideosViewTV> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            homeRowItem("Most Popular", _playlistData),
-            homeRowItem("Most Popular", _playlistData),
-            homeRowItem("Most Popular", _playlistData),
+            for (int x = 0; x < _playLists.length; x++) ...[
+              homeRowItem("Most Popular", _playLists[x]),
+            ],
           ],
         ),
       ),
