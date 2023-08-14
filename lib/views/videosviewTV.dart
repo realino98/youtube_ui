@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:youtube_ui/utils/videothumbnail.dart';
 
 import '../models/video_model.dart';
@@ -76,7 +77,12 @@ class _VideosViewTVState extends State<VideosViewTV> {
                     padding: const EdgeInsets.only(right: 8),
                     child: VideoThumbnail(
                       video: playlistData[index],
-                    ),
+                    ).animate().fade(duration: 2000.ms).moveX(
+                        duration: 1000.ms,
+                        delay: 500.ms * index,
+                        begin: 300,
+                        end: 0,
+                        curve: Curves.easeIn),
                   ),
                 ),
               )

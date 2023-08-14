@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({super.key, required this.onSelectedItem});
@@ -170,7 +171,7 @@ class Sidebar extends StatelessWidget {
             leading: Icon(Icons.info_outline),
             title: Text("Send feedback"),
           ),
-        ],
+        ].animate(interval: 100.ms, delay: 1000.ms).fade(duration: 300.ms),
       ),
     );
   }

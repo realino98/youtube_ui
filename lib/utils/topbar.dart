@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class TopBar extends StatefulWidget {
   const TopBar({super.key});
@@ -107,7 +108,15 @@ class _TopBarState extends State<TopBar> {
               ),
             ],
           ),
-        ],
+        ]
+            .animate(
+              interval: 100.ms,
+              delay: 1000.ms,
+            )
+            .fade(
+              duration: 2000.ms,
+            )
+            .moveY(begin: -50, end: 0, duration: 800.ms),
       ),
     );
   }
