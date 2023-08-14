@@ -72,21 +72,21 @@ class API_Service {
       var jsonResponse =
           convert.jsonDecode(response.body) as Map<String, dynamic>;
       Channel channel = Channel.fromMap(jsonResponse['items'][0]);
-
-      channel.channelVideos =
-          await fetchVideosFromPlaylist(playlistId: channel.uploads);
+      // channel.channelVideos =
+      //     await fetchVideosFromPlaylist(playlistId: channel.uploads);
       return channel;
     } else {
       throw convert.jsonDecode(response.body)['error']['message'];
     }
   }
 
-  Future<List<Video>> fetchVideosFromPlaylist({String? playlistId}) async {
+  Future<List<Video>> fetchVideosFromPlaylist(
+      {required String playlistId}) async {
     Map<String, String> parameters = {
-      'part': 'snippet',
-      'playlistId': playlistId ?? "",
-      'maxResults': '12',
-      'pageToken': _nextPageToken,
+      'part': 'snippet, statistics',
+      'id': playlistId,
+      // 'maxResults': '12',
+      // 'pageToken': _nextPageToken,
       'key': API_KEY,
     };
     var url = Uri.https(urlString[0], urlString[1] + "channels", parameters);
@@ -98,16 +98,15 @@ class API_Service {
       var jsonResponse =
           convert.jsonDecode(response.body) as Map<String, dynamic>;
 
-      _nextPageToken = jsonResponse['nextPageToken'] ?? '';
+      // _nextPageToken = jsonResponse['nextPageToken'] ?? '';
       List<dynamic> videosJson = jsonResponse['items'];
 
-      // Fetch first eight videos from uploads playlist
       List<Video> videos = [];
-      videosJson.forEach(
-        (json) => videos.add(
-          Video.fromMap(json['snippet']),
-        ),
-      );
+      // videosJson.forEach(
+      //   (video) => videos.add(
+      //     Video.fromMap(video),
+      //   ),
+      // );
       return videos;
     } else {
       throw convert.jsonDecode(response.body)['error']['message'];

@@ -7,7 +7,7 @@ class Channel {
   final String subscribers;
   final String country;
   final String uploads;
-  late final List<Video> channelVideos;
+  List<Video> channelVideos;
 
   Channel({
     required this.id,
@@ -24,7 +24,7 @@ class Channel {
       id: channel['id'],
       title: channel['snippet']['title'],
       profilePicture: channel['snippet']['thumbnails']['default']['url'],
-      subscribers: channel['statistics']['subsriberCount'],
+      subscribers: channel['statistics']['subscriberCount'],
       country: channel['snippet']['country'],
       uploads: channel['contentDetails']['relatedPlaylists']['uploads'],
       channelVideos: [],
