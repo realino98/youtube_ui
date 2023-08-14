@@ -28,7 +28,7 @@ class _ChannelPageState extends State<ChannelPage> {
 
   _initChannelData() async {
     Channel channel =
-        await API_Service.instance.fetchChannel(id: "UChk1rCFhhnqPnDzcjIJKhTw");
+        await API_Service.instance.fetchChannel(id: widget.channelId);
     // List<Video> playlistData = await API_Service.instance.fetchPlaylist();
     setState(() {
       _channel = channel;

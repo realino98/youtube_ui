@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+import 'package:youtube_ui/pages/channel_page.dart';
 import '../models/video_model.dart';
 import '../services/api_service.dart';
 
@@ -105,42 +106,53 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                                 Row(
                                   children: [
                                     //Items Left
-                                    Row(
-                                      children: [
-                                        CircleAvatar(),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              _videoData.channelTitle,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) => ChannelPage(
+                                                channelId:
+                                                    _videoData.channelId),
+                                          ),
+                                        );
+                                      },
+                                      child: Row(
+                                        children: [
+                                          CircleAvatar(),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                _videoData.channelTitle,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              "[Subscribers]",
-                                              style:
-                                                  TextStyle(color: Colors.grey),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text("${_videoData.views} Views"),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () {},
-                                          child: Text("Subscribe"),
-                                        ),
-                                      ],
+                                              Text(
+                                                "[Subscribers]",
+                                                style: TextStyle(
+                                                    color: Colors.grey),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text("${_videoData.views} Views"),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () {},
+                                            child: Text("Subscribe"),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     //Items Right
                                     Row(

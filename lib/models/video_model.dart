@@ -6,6 +6,7 @@ class Video {
   final String thumbnail;
   final String published;
   final String views;
+  final String channelId;
 
   Video({
     required this.id,
@@ -15,6 +16,7 @@ class Video {
     required this.thumbnail,
     required this.published,
     required this.views,
+    required this.channelId,
   });
 
   factory Video.fromMap(Map<String, dynamic> video) {
@@ -26,6 +28,7 @@ class Video {
       channelTitle: video['snippet']['channelTitle'],
       published: video['snippet']['publishedAt'],
       views: viewCount(video['statistics']['viewCount']),
+      channelId: video['snippet']['channelId'],
     );
   }
 }
