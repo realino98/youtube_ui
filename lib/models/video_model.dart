@@ -27,7 +27,8 @@ class Video {
       thumbnail: video['snippet']['thumbnails']['medium']['url'],
       channelTitle: video['snippet']['channelTitle'],
       published: video['snippet']['publishedAt'],
-      views: viewCount(video['statistics']['viewCount']),
+      // views: viewCount(video['statistics']['viewCount']),
+      views: "1000",
       channelId: video['snippet']['channelId'],
     );
   }

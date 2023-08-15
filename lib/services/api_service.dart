@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../models/channel_model.dart';
 import '../models/video_model.dart';
 import '../utilities/keys.dart';
@@ -29,7 +31,7 @@ class API_Service {
       List<dynamic> videosJson = jsonResponse['items'];
       videosJson.forEach(
         (video) {
-          videoData.add(Video.fromMap(video));
+          videoData.add(Video.fromMap(video as Map<String, dynamic>));
         },
       );
       return videoData;
@@ -72,8 +74,9 @@ class API_Service {
       var jsonResponse =
           convert.jsonDecode(response.body) as Map<String, dynamic>;
       Channel channel = Channel.fromMap(jsonResponse['items'][0]);
-      // channel.channelVideos =
-      //     await fetchVideosFromPlaylist(playlistId: channel.uploads);
+
+      channel.channelVideos =
+          await fetchVideosFromPlaylist(playlistId: channel.uploads);
       return channel;
     } else {
       throw convert.jsonDecode(response.body)['error']['message'];
@@ -83,16 +86,19 @@ class API_Service {
   Future<List<Video>> fetchVideosFromPlaylist(
       {required String playlistId}) async {
     Map<String, String> parameters = {
-      'part': 'snippet, statistics',
-      'id': playlistId,
-      // 'maxResults': '12',
+      'part': 'snippet, contentDetails',
+      'playlistId': playlistId,
+      'maxResults': '12',
       // 'pageToken': _nextPageToken,
       'key': API_KEY,
     };
-    var url = Uri.https(urlString[0], urlString[1] + "channels", parameters);
-
+    var url =
+        Uri.https(urlString[0], urlString[1] + "playlistItems", parameters);
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
     // Get Playlist Videos
-    var response = await http.get(url);
+    var response = await http.get(url, headers: headers);
 
     if (response.statusCode == 200) {
       var jsonResponse =
@@ -102,11 +108,11 @@ class API_Service {
       List<dynamic> videosJson = jsonResponse['items'];
 
       List<Video> videos = [];
-      // videosJson.forEach(
-      //   (video) => videos.add(
-      //     Video.fromMap(video),
-      //   ),
-      // );
+      videosJson.forEach(
+        (video) => videos.add(
+          Video.fromMap(video),
+        ),
+      );
       return videos;
     } else {
       throw convert.jsonDecode(response.body)['error']['message'];

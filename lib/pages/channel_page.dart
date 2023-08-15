@@ -17,8 +17,6 @@ class _ChannelPageState extends State<ChannelPage> {
   List<Video> _playlistData = [];
   late Channel _channel;
   bool _isLoading = true;
-  int maxResult = 25;
-  String chart = "mostPopular";
 
   @override
   void initState() {
@@ -42,6 +40,7 @@ class _ChannelPageState extends State<ChannelPage> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 width: 100,
@@ -55,18 +54,22 @@ class _ChannelPageState extends State<ChannelPage> {
               Visibility(
                 visible: !_isLoading,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                       height: 210,
-                      width: 800,
+                      width: 1700,
                       color: Colors.white,
                       // child: Image.network(
                       //   _channel.profilePicture,
                       //   fit: BoxFit.cover,
                       // ),
                     ),
+                    SizedBox(
+                      height: 15,
+                    ),
                     Container(
-                      width: 800,
+                      width: 1600,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -113,15 +116,20 @@ class _ChannelPageState extends State<ChannelPage> {
                     ),
                     Container(
                       height: 500,
-                      width: 900,
-                      child: _channel.channelVideos.length != 0
+                      width: 1600,
+                      child: !_isLoading
                           ? ListView.builder(
+                              itemCount: _channel.channelVideos.length,
+                              scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                return VideoThumbnail(
-                                    video: _channel.channelVideos[index]);
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  child: VideoThumbnail(
+                                      video: _channel.channelVideos[index]),
+                                );
                               },
                             )
-                          : Text("Videos Empty"),
+                          : CircularProgressIndicator(),
                     )
                   ],
                 ),
