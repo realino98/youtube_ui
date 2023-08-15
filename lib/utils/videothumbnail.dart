@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_ui/models/channel_model.dart';
+import 'package:youtube_ui/pages/channel_page.dart';
 
 import '../models/video_model.dart';
 import '../pages/videoplay_page.dart';
 
-class VideoThumbnail extends StatelessWidget {
+class VideoThumbnail extends StatefulWidget {
   VideoThumbnail({
     required this.video,
   });
   final Video video;
 
   @override
+  State<VideoThumbnail> createState() => _VideoThumbnailState();
+}
+
+class _VideoThumbnailState extends State<VideoThumbnail> {
+  @override
   Widget build(BuildContext context) {
+    int selectedMenu = 0;
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
               return VideoPlayPage(
-                id: video.id,
+                id: widget.video.id,
               );
             },
           ),
@@ -33,7 +41,7 @@ class VideoThumbnail extends StatelessWidget {
                 height: 210,
                 color: Colors.white,
                 child: Image.network(
-                  video.thumbnail,
+                  widget.video.thumbnail,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -49,7 +57,7 @@ class VideoThumbnail extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
-                      child: Image.network(video.profilePicture),
+                      child: Image.network(widget.video.profilePicture),
                       backgroundColor: Colors.white,
                     ),
                     SizedBox(
@@ -63,7 +71,7 @@ class VideoThumbnail extends StatelessWidget {
                           child: Text(
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            video.title,
+                            widget.video.title,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -72,7 +80,7 @@ class VideoThumbnail extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              video.channelTitle,
+                              widget.video.channelTitle,
                               style: TextStyle(
                                 color: Colors.grey,
                               ),
@@ -86,7 +94,7 @@ class VideoThumbnail extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "${video.views} Views",
+                              "${widget.video.views} Views",
                               style: TextStyle(
                                 color: Colors.grey,
                               ),
@@ -98,7 +106,7 @@ class VideoThumbnail extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "${video.published[0]}${video.published[1]}${video.published[2]}${video.published[3]}${video.published[4]}${video.published[5]}${video.published[6]}${video.published[7]}${video.published[8]}${video.published[9]}",
+                              "${widget.video.published[0]}${widget.video.published[1]}${widget.video.published[2]}${widget.video.published[3]}${widget.video.published[4]}${widget.video.published[5]}${widget.video.published[6]}${widget.video.published[7]}${widget.video.published[8]}${widget.video.published[9]}",
                               style: TextStyle(
                                 color: Colors.grey,
                               ),
@@ -109,9 +117,20 @@ class VideoThumbnail extends StatelessWidget {
                     ),
                   ],
                 ),
-                IconButton(
-                  icon: Icon(Icons.more_vert_outlined),
-                  onPressed: () {},
+                PopupMenuButton<String>(
+                  onSelected: (String item) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ChannelPage(channelId: item),
+                      ),
+                    );
+                  },
+                  itemBuilder: (BuildContext context) => [
+                    PopupMenuItem(
+                      value: widget.video.channelId,
+                      child: Text('Profile'),
+                    ),
+                  ],
                 ),
               ],
             ),
