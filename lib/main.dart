@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_ui/pages/login_page.dart';
 import 'package:youtube_ui/pages/root_page.dart';
 import 'package:youtube_ui/pages/videoplay_page.dart';
 
@@ -23,8 +24,12 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       themeMode: ThemeMode.system,
+      routes: {
+        '/homepage': (context) => RootPage(),
+      },
       debugShowCheckedModeBanner: false,
-      home: RootPage(),
+      // home: RootPage(),
+      home: LoginPage(),
       // home: VideoPlayPage(id: "wKCpeEREeCw"),
     );
   }

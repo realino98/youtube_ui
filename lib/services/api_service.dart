@@ -53,8 +53,9 @@ class API_Service {
     if (response.statusCode == 200) {
       var jsonResponse =
           convert.jsonDecode(response.body) as Map<String, dynamic>;
-
-      return Video.fromMap(jsonResponse['items'][0]);
+      Video video = Video.fromMap(jsonResponse['items'][0]);
+      video.profilePicture = "" as String;
+      return video;
     } else {
       throw convert.jsonDecode(response.body)['error']['message'];
     }

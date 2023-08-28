@@ -1,6 +1,6 @@
 class Video {
   final String id;
-  final String profilePicture;
+  String profilePicture;
   final String title;
   final String channelTitle;
   final String thumbnail;
