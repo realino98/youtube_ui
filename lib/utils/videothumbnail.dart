@@ -34,11 +34,12 @@ class _VideoThumbnailState extends State<VideoThumbnail> {
       child: Container(
         color: Colors.transparent,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(
-                height: 210,
+                height: 300,
                 color: Colors.white,
                 child: Image.network(
                   widget.video.thumbnail,
@@ -50,24 +51,22 @@ class _VideoThumbnailState extends State<VideoThumbnail> {
               height: 8,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircleAvatar(
-                      child: Image.network(widget.video.profilePicture),
-                      backgroundColor: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
+                    // CircleAvatar(
+                    //   child: Image.network(widget.video.profilePicture),
+                    //   backgroundColor: Colors.white,
+                    // ),
+                    // SizedBox(
+                    //   width: 8,
+                    // ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: 250,
+                          width: 450,
                           child: Text(
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -89,10 +88,12 @@ class _VideoThumbnailState extends State<VideoThumbnail> {
                               Icons.verified,
                               color: Colors.grey,
                             ),
-                          ],
-                        ),
-                        Row(
-                          children: [
+                            Text(
+                              " | ",
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
                             Text(
                               "${widget.video.views} Views",
                               style: TextStyle(
@@ -112,6 +113,9 @@ class _VideoThumbnailState extends State<VideoThumbnail> {
                               ),
                             ),
                           ],
+                        ),
+                        Row(
+                          children: [],
                         ),
                       ],
                     ),
@@ -152,11 +156,8 @@ class SmallThumbnail extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(5),
@@ -174,7 +175,6 @@ class SmallThumbnail extends StatelessWidget {
                 width: 8,
               ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
                     width: 220,

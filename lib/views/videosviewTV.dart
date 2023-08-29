@@ -70,7 +70,7 @@ class _VideosViewTVState extends State<VideosViewTV> {
         ),
         !_isLoading
             ? Container(
-                height: 320,
+                height: 400,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => Padding(
