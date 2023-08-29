@@ -22,7 +22,8 @@ class Video {
   factory Video.fromMap(Map<String, dynamic> video) {
     return Video(
       id: video['id'],
-      profilePicture: video['snippet']['thumbnails']['default']['url'],
+      // profilePicture: video['snippet']['thumbnails']['default']['url'],
+      profilePicture: "",
       title: video['snippet']['title'] ?? 'title',
       thumbnail: video['snippet']['thumbnails']['medium']['url'],
       channelTitle: video['snippet']['channelTitle'],
