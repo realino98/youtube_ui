@@ -11,6 +11,8 @@ class TopBar extends StatefulWidget {
 class _TopBarState extends State<TopBar> {
   @override
   Widget build(BuildContext context) {
+    TextEditingController editingController = TextEditingController();
+
     return Container(
       height: 60,
       child: Row(
@@ -34,8 +36,14 @@ class _TopBarState extends State<TopBar> {
               child: Row(
                 children: [
                   Container(
-                    child: Text("Search"),
                     width: 250,
+                    child: TextField(
+                      controller: editingController,
+                      decoration: InputDecoration(
+                        // border: OutlineInputBorder(),
+                        hintText: 'Search',
+                      ),
+                    ),
                   ),
                   IconButton(
                     icon: Icon(Icons.search_outlined),

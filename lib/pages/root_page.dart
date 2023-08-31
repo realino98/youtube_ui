@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_ui/pages/search_page.dart';
 import 'package:youtube_ui/utils/categorybar.dart';
 import 'package:youtube_ui/utils/topbar.dart';
 
@@ -37,6 +38,7 @@ class _RootPageState extends State<RootPage> {
                     children: [
                       // CategoryBar(),
                       Expanded(
+                        // child: SearchPage(),
                         child: MainContent(),
                       ),
                     ],

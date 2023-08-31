@@ -73,6 +73,7 @@ class _VideoThumbnailState extends State<VideoThumbnail> {
                             widget.video.title,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontSize: 23,
                             ),
                           ),
                         ),

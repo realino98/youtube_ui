@@ -13,6 +13,9 @@ class Sidebar extends StatelessWidget {
           // ListTile(
           //   title: Text("Explore"),
           // ),
+          listTile(Icons.person, "Profile"),
+          Divider(),
+          listTile(Icons.search_outlined, "Search"),
           listTile(Icons.trending_up_outlined, "Trending"),
           listTile(Icons.music_note_outlined, "Music"),
           listTile(Icons.movie_outlined, "Movies"),

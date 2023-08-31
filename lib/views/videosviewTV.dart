@@ -24,8 +24,6 @@ class _VideosViewTVState extends State<VideosViewTV> {
     super.initState();
     // _initPlaylist();
     _initPlaylist();
-    _initPlaylist();
-    _initPlaylist();
   }
 
   _initPlaylist() async {
